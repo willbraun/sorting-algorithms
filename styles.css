@@ -22,6 +22,24 @@ h1 {
     border: 1px solid #000;
 }
 
+button:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+button:active {
+    filter: brightness(95%);
+    transform: translateY(1px);
+}
+
 .not-started {
-    background-color: rgb(255, 105, 105);
+    background-color: rgb(251, 129, 129);
+}
+
+.in-progress {
+    background-color: rgb(255, 255, 112);
+}
+
+.done {
+    background-color: rgb(98, 228, 98);
 }
