@@ -1,3 +1,27 @@
 h1 {
     text-align: center;
 }
+
+.numbers p {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.button-box {
+    max-width: 800px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+.button-box button {
+    height: 2.5rem;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    border: 1px solid #000;
+}
+
+.not-started {
+    background-color: rgb(255, 105, 105);
+}
