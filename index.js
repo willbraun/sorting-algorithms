@@ -52,6 +52,7 @@
     const bubbleSort = arr => {
         // Checks each pair of adjacent elements and swaps if they are out of order
         // Goes through array until no swaps are made
+
         let newArray = [...arr];
         let didSwap = true;
 
@@ -69,16 +70,13 @@
     }
 
     const selectionSort = arr => {
-        // Scans for the smallest item and swaps it with the 1st position, then 2nd, and so on
+        // Scans for the smallest item and swaps it with the 1st position, then 2nd, and so on to the end of the array
 
         let newArray = [...arr];
         let index = 0;
 
         while (index < newArray.length) {
-            console.log(...newArray.slice(index));
-            console.log(Math.min(...newArray.slice(index)));
             const smallIndex = newArray.lastIndexOf(Math.min(...newArray.slice(index)));
-            console.log(smallIndex);
             [newArray[index], newArray[smallIndex]] = [newArray[smallIndex], newArray[index]];
             index++;
         }
@@ -88,7 +86,6 @@
 
     const insertionSort = arr => {
 
-        updateAndVerify([0, 2]);
     }
 
     $newSet.addEventListener('click', newSet);
