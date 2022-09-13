@@ -19,11 +19,12 @@ h1 {
     margin: 1rem auto;
 }
 
-.new-set {
+#new-set {
     position: relative;
     margin: auto;
     width: fit-content;
     margin: 1rem auto 2rem;
+    font-size: 1rem;
 }
 
 .button-box {

@@ -1,31 +1,45 @@
 (() => {
     'use strict'
 
-    const array = Array.apply(null, Array(10)).map(() => Math.floor(Math.random() * 100));
+    const makeNewArray = () => Array.apply(null, Array(10)).map(() => Math.floor(Math.random() * 100));
+
+    let array = makeNewArray();
     const $array = document.querySelector('#array');
     const updateDisplay = newArr => $array.innerHTML = newArr.join(', ');
     updateDisplay(array);
 
+    const newSet = () => {
+        array = makeNewArray()
+        updateDisplay(array);
+        $array.setAttribute('style', `color: #000;`);
+    }
+
     const verifyOrder = arr => {
         const newArray = [...array];
         const sorted = newArray.sort((a, b) => a - b);
-        if (arr.every(el => arr.indexOf(el) === sorted.indexOf(el))) {
-            $array.setAttribute('style', 'color: rgb(70, 190, 70);');
+
+        let result = true;
+        for (let i = 0; i < arr.length; i++)  {
+            if (arr[i] !== sorted[i]) {
+                result = false;
+                break;
+            }
         }
-        else {
-            $array.setAttribute('style', 'color: #F00;');
-        }
+
+        $array.setAttribute('style', `color: ${result ? 'rgb(70, 190, 70)' : '#F00'};`);
     }
 
     const updateAndVerify = newArr => {
         verifyOrder(newArr);
         updateDisplay(newArr);
     }
-    
 
+
+    
+    const $newSet = document.querySelector('#new-set');
     const $bubbleSort = document.querySelector('#bubble-sort');
     const $selectionSort = document.querySelector('#selection-sort');
-    // const $insertionSort = document.querySelector('#insertion-sort');
+    const $insertionSort = document.querySelector('#insertion-sort');
     // const $mergeSort = document.querySelector('#merge-sort');
     // const $quickSort = document.querySelector('#quick-sort');
     // const $heapSort = document.querySelector('#heap-sort');
@@ -61,7 +75,10 @@
         let index = 0;
 
         while (index < newArray.length) {
-            const smallIndex = newArray.indexOf(Math.min(...newArray.slice(index)));
+            console.log(...newArray.slice(index));
+            console.log(Math.min(...newArray.slice(index)));
+            const smallIndex = newArray.lastIndexOf(Math.min(...newArray.slice(index)));
+            console.log(smallIndex);
             [newArray[index], newArray[smallIndex]] = [newArray[smallIndex], newArray[index]];
             index++;
         }
@@ -69,9 +86,15 @@
         updateAndVerify(newArray);
     }
 
+    const insertionSort = arr => {
+
+        updateAndVerify([0, 2]);
+    }
+
+    $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
-    // $insertionSort.addEventListener('click', () => insertionSort(array));
+    $insertionSort.addEventListener('click', () => insertionSort(array));
     // $mergeSort.addEventListener('click', () => mergeSort(array));
     // $quickSort.addEventListener('click', () => quickSort(array));
     // $heapSort.addEventListener('click', () => heapSort(array));
