@@ -1,0 +1,1 @@
+The purpose of this repo is to practice implementing various sorting algorithms. 
