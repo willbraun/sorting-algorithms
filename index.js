@@ -85,7 +85,25 @@
     }
 
     const insertionSort = arr => {
+        const result = [];
 
+        for (let i = 0; i < arr.length; i++) {
+            const value = arr[i];
+            result.push(value);
+
+            // current last index of result array
+            let j = i - 1; 
+
+            // Move all result values higher than current value to the right, then add current value after that finishes
+            while (j >= 0 && result[j] > value) {
+                result[j + 1] = result[j];
+                j--;
+            }
+
+            result[j + 1] = value;
+        }
+
+        updateAndVerify(result);
     }
 
     $newSet.addEventListener('click', newSet);
