@@ -107,6 +107,7 @@
     }
 
     const mergeSort = arr => {
+        // Recursively splits array into smaller pieces, then merges them back together in a sorted order
         updateAndVerify(mergeSortRecursive(arr));
     }
 
