@@ -40,7 +40,7 @@
     const $bubbleSort = document.querySelector('#bubble-sort');
     const $selectionSort = document.querySelector('#selection-sort');
     const $insertionSort = document.querySelector('#insertion-sort');
-    // const $mergeSort = document.querySelector('#merge-sort');
+    const $mergeSort = document.querySelector('#merge-sort');
     // const $quickSort = document.querySelector('#quick-sort');
     // const $heapSort = document.querySelector('#heap-sort');
     // const $countingSort = document.querySelector('#counting-sort');
@@ -106,11 +106,42 @@
         updateAndVerify(result);
     }
 
+    const mergeSort = arr => {
+        updateAndVerify(mergeSortRecursive(arr));
+    }
+
+    const mergeSortRecursive = arr => {
+        if (arr.length <= 1) {
+            return arr;
+        }
+
+        const middle = Math.floor(arr.length / 2);
+        const left = arr.slice(0, middle);
+        const right = arr.slice(middle);
+
+        return merge(mergeSortRecursive(left), mergeSortRecursive(right));
+    }
+
+    const merge = (left, right) => {
+        const array = [];
+
+        while (left.length && right.length) {
+            if (left[0] < right[0]) {
+                array.push(left.shift());
+            }
+            else {
+                array.push(right.shift());
+            }
+        }
+
+        return [...array, ...left, ...right];
+    }
+
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
     $insertionSort.addEventListener('click', () => insertionSort(array));
-    // $mergeSort.addEventListener('click', () => mergeSort(array));
+    $mergeSort.addEventListener('click', () => mergeSort(array));
     // $quickSort.addEventListener('click', () => quickSort(array));
     // $heapSort.addEventListener('click', () => heapSort(array));
     // $countingSort.addEventListener('click', () => countingSort(array));
