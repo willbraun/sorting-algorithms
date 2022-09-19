@@ -43,7 +43,7 @@
     const $insertionSort = document.querySelector('#insertion-sort');
     const $mergeSort = document.querySelector('#merge-sort');
     const $quickSort = document.querySelector('#quick-sort');
-    // const $heapSort = document.querySelector('#heap-sort');
+    const $heapSort = document.querySelector('#heap-sort');
     // const $countingSort = document.querySelector('#counting-sort');
     // const $radixSort = document.querySelector('#radix-sort');
     // const $bucketSort = document.querySelector('#bubble-sort');
@@ -159,13 +159,52 @@
         return [...quickSortRecursive(left), pivot, ...quickSortRecursive(right)];
     }
 
+    const heapify = (arr, length, parentIndex) => {
+        let largest = parentIndex;
+        const left = parentIndex * 2 + 1;
+        const right = left + 1;
+
+        if (left < length && arr[left] > arr[largest]) {
+            largest = left;
+        }
+        if (right < length && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        if (largest !== parentIndex) {
+            [arr[parentIndex], arr[largest]] = [arr[largest], arr[parentIndex]];
+            heapify(arr, length, largest);
+        }
+
+        return arr;
+    }
+
+    const heapSort = arr => {
+        const length = arr.length;
+        let lastParentNode = Math.floor(length / 2 - 1);
+        let lastChild = length - 1;
+
+        while (lastParentNode >= 0) {
+            heapify(arr, length, lastParentNode);
+            lastParentNode--;
+        }
+
+        while (lastChild >= 0) {
+            [arr[0], arr[lastChild]] = [arr[lastChild], arr[0]];
+            heapify(arr, lastChild, 0);
+            lastChild--;
+        }
+
+        updateAndVerify(arr);
+    }
+
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
     $insertionSort.addEventListener('click', () => insertionSort(array));
     $mergeSort.addEventListener('click', () => mergeSort(array));
     $quickSort.addEventListener('click', () => quickSort(array));
-    // $heapSort.addEventListener('click', () => heapSort(array));
+    $heapSort.addEventListener('click', () => heapSort(array));
     // $countingSort.addEventListener('click', () => countingSort(array));
     // $radixSort.addEventListener('click', () => radixSort(array));
     // $bucketSort.addEventListener('click', () => bucketSort(array));
