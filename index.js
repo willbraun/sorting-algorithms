@@ -22,6 +22,7 @@
         for (let i = 0; i < arr.length; i++)  {
             if (arr[i] !== sorted[i]) {
                 result = false;
+                console.log(newArray, sorted)
                 break;
             }
         }
@@ -41,7 +42,7 @@
     const $selectionSort = document.querySelector('#selection-sort');
     const $insertionSort = document.querySelector('#insertion-sort');
     const $mergeSort = document.querySelector('#merge-sort');
-    // const $quickSort = document.querySelector('#quick-sort');
+    const $quickSort = document.querySelector('#quick-sort');
     // const $heapSort = document.querySelector('#heap-sort');
     // const $countingSort = document.querySelector('#counting-sort');
     // const $radixSort = document.querySelector('#radix-sort');
@@ -138,12 +139,32 @@
         return [...array, ...left, ...right];
     }
 
+    const quickSort = arr => {
+        updateAndVerify(quickSortRecursive(arr));
+    }
+
+    const quickSortRecursive = arr => {
+        if (arr.length <= 1) {
+            return arr;
+        }
+
+        const newArr = [...arr];
+
+        const pivot = newArr.pop();
+        const left = [];
+        const right = [];
+
+        newArr.forEach(x => x < pivot ? left.push(x) : right.push(x));
+
+        return [...quickSortRecursive(left), pivot, ...quickSortRecursive(right)];
+    }
+
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
     $insertionSort.addEventListener('click', () => insertionSort(array));
     $mergeSort.addEventListener('click', () => mergeSort(array));
-    // $quickSort.addEventListener('click', () => quickSort(array));
+    $quickSort.addEventListener('click', () => quickSort(array));
     // $heapSort.addEventListener('click', () => heapSort(array));
     // $countingSort.addEventListener('click', () => countingSort(array));
     // $radixSort.addEventListener('click', () => radixSort(array));
