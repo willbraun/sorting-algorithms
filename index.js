@@ -44,7 +44,7 @@
     const $mergeSort = document.querySelector('#merge-sort');
     const $quickSort = document.querySelector('#quick-sort');
     const $heapSort = document.querySelector('#heap-sort');
-    // const $countingSort = document.querySelector('#counting-sort');
+    const $countingSort = document.querySelector('#counting-sort');
     // const $radixSort = document.querySelector('#radix-sort');
     // const $bucketSort = document.querySelector('#bubble-sort');
 
@@ -198,6 +198,38 @@
         updateAndVerify(arr);
     }
 
+    const countingSort = arr => {
+        const min = Math.min(...arr);
+        const max = Math.max(...arr);
+        const count = {};
+
+        for (let i = min; i <= max; i++) {
+            count[`${i}`] = 0;
+        }
+
+        arr.forEach(num => count[`${num}`]++);
+
+        for (let i = min + 1; i <= max; i++) {
+            count[`${i}`] += count[`${i-1}`];
+        }
+
+        const shiftedCount = {};
+        shiftedCount[`${min}`] = 0;
+
+        for (let i = min + 1; i <= max; i++) {
+            shiftedCount[`${i}`] = count[`${i-1}`];
+        }
+        
+        const result = Array(arr.length);
+
+        arr.forEach(num => {
+            result[shiftedCount[`${num}`]] = num;
+            shiftedCount[`${num}`]++;
+        })
+        
+        updateAndVerify(result);
+    }
+
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
@@ -205,7 +237,7 @@
     $mergeSort.addEventListener('click', () => mergeSort(array));
     $quickSort.addEventListener('click', () => quickSort(array));
     $heapSort.addEventListener('click', () => heapSort(array));
-    // $countingSort.addEventListener('click', () => countingSort(array));
+    $countingSort.addEventListener('click', () => countingSort(array));
     // $radixSort.addEventListener('click', () => radixSort(array));
     // $bucketSort.addEventListener('click', () => bucketSort(array));
 })();
