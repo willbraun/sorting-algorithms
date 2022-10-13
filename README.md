@@ -12,7 +12,7 @@ I learn by doing, so I created a basic web page to learn and implement various s
 - Radix Sort
 - Bucket Sort
 
-Numbers will rearrange and turn green once sorted. You may create a new set of numbers to sort using the New Set button.
+Numbers will rearrange and turn green once sorted. You can create a new set of numbers to sort using the New Set button.
 
 # Technologies Used
 
