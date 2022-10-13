@@ -22,7 +22,6 @@
         for (let i = 0; i < arr.length; i++)  {
             if (arr[i] !== sorted[i]) {
                 result = false;
-                console.log(newArray, sorted)
                 break;
             }
         }
@@ -45,7 +44,7 @@
     const $quickSort = document.querySelector('#quick-sort');
     const $heapSort = document.querySelector('#heap-sort');
     const $countingSort = document.querySelector('#counting-sort');
-    // const $radixSort = document.querySelector('#radix-sort');
+    const $radixSort = document.querySelector('#radix-sort');
     // const $bucketSort = document.querySelector('#bubble-sort');
 
     
@@ -198,7 +197,7 @@
         updateAndVerify(arr);
     }
 
-    const countingSort = arr => {
+    const countingSortInner = arr => {
         const min = Math.min(...arr);
         const max = Math.max(...arr);
         const count = {};
@@ -227,7 +226,34 @@
             shiftedCount[`${num}`]++;
         })
         
-        updateAndVerify(result);
+        return result;
+    }
+
+    const countingSort = arr => {
+        updateAndVerify(countingSortInner(arr));
+    }
+
+    const radixSort = arr => {
+        let newArr = [...arr];
+        const maxDigits = Math.max(...arr).toString().length;
+
+        const getNum = (num, index) => {
+            return Number(num.toString().at(-index)) || 0;
+        }
+        
+        for (let i = 0; i < maxDigits; i++) {
+            let buckets = Array.from({ length: 10 }, () => []);
+
+            for (let j = 0; j < newArr.length; j++) {
+                const num = getNum(newArr[j], i + 1);
+                if (num !== undefined) {
+                    buckets[num].push(newArr[j])
+                }
+            }
+            newArr = buckets.flat();
+        }
+
+        updateAndVerify(newArr);
     }
 
     $newSet.addEventListener('click', newSet);
@@ -238,6 +264,6 @@
     $quickSort.addEventListener('click', () => quickSort(array));
     $heapSort.addEventListener('click', () => heapSort(array));
     $countingSort.addEventListener('click', () => countingSort(array));
-    // $radixSort.addEventListener('click', () => radixSort(array));
+    $radixSort.addEventListener('click', () => radixSort(array));
     // $bucketSort.addEventListener('click', () => bucketSort(array));
 })();
