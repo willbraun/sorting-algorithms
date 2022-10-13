@@ -22,9 +22,12 @@ h1 {
 #new-set {
     position: relative;
     margin: auto;
+    padding: 0.3rem 0.6rem;
     width: fit-content;
     margin: 1rem auto 2rem;
     font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #000;
 }
 
 .button-box {

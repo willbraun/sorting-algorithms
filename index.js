@@ -282,7 +282,7 @@
         updateAndVerify(newArr);
     }
 
-    
+
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
