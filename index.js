@@ -34,7 +34,6 @@
         updateDisplay(newArr);
     }
 
-
     
     const $newSet = document.querySelector('#new-set');
     const $bubbleSort = document.querySelector('#bubble-sort');
@@ -45,9 +44,8 @@
     const $heapSort = document.querySelector('#heap-sort');
     const $countingSort = document.querySelector('#counting-sort');
     const $radixSort = document.querySelector('#radix-sort');
-    // const $bucketSort = document.querySelector('#bubble-sort');
+    const $bucketSort = document.querySelector('#bucket-sort');
 
-    
 
     const bubbleSort = arr => {
         // Checks each pair of adjacent elements and swaps if they are out of order
@@ -84,7 +82,7 @@
         updateAndVerify(newArray);
     }
 
-    const insertionSort = arr => {
+    const insertionSortInner = arr => {
         const result = [];
 
         for (let i = 0; i < arr.length; i++) {
@@ -103,7 +101,11 @@
             result[j + 1] = value;
         }
 
-        updateAndVerify(result);
+        return result;
+    }
+
+    const insertionSort = arr => {
+        updateAndVerify(insertionSortInner(arr));
     }
 
     const mergeSort = arr => {
@@ -198,6 +200,7 @@
     }
 
     const countingSortInner = arr => {
+        // Counts the number of times each number appears in the array
         const min = Math.min(...arr);
         const max = Math.max(...arr);
         const count = {};
@@ -208,10 +211,12 @@
 
         arr.forEach(num => count[`${num}`]++);
 
+        // Counts the cumulative total at each number
         for (let i = min + 1; i <= max; i++) {
             count[`${i}`] += count[`${i-1}`];
         }
 
+        // Shifts the cumulative total to find the index that each number appears at in the sorted array
         const shiftedCount = {};
         shiftedCount[`${min}`] = 0;
 
@@ -234,6 +239,7 @@
     }
 
     const radixSort = arr => {
+        // Sorts by last digit, then by next to last digit, and so on
         let newArr = [...arr];
         const maxDigits = Math.max(...arr).toString().length;
 
@@ -256,6 +262,27 @@
         updateAndVerify(newArr);
     }
 
+    const bucketSort = arr => {
+        // Groups numbers into an arbitrary number of buckets, sorts within the bucket, and merges them back together
+        const bucketNum = 5;
+        const min = Math.min(...arr);
+        const max = Math.max(...arr);
+        const step = Math.ceil((max - min)/bucketNum);
+
+        let buckets = Array.from({ length: bucketNum }, () => []);
+
+        buckets.forEach((bucket, i) => {
+            const filtered = arr.filter(num => (min + (step * i)) <= num && num < (min + (step * (i + 1))));
+            const sorted = insertionSortInner(filtered);
+            bucket.push(...sorted);
+        });
+
+        const newArr = buckets.flat()
+
+        updateAndVerify(newArr);
+    }
+
+    
     $newSet.addEventListener('click', newSet);
     $bubbleSort.addEventListener('click', () => bubbleSort(array));
     $selectionSort.addEventListener('click', () => selectionSort(array));
@@ -265,5 +292,5 @@
     $heapSort.addEventListener('click', () => heapSort(array));
     $countingSort.addEventListener('click', () => countingSort(array));
     $radixSort.addEventListener('click', () => radixSort(array));
-    // $bucketSort.addEventListener('click', () => bucketSort(array));
+    $bucketSort.addEventListener('click', () => bucketSort(array));
 })();
